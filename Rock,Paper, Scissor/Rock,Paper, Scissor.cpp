@@ -1,20 +1,132 @@
-// Rock,Paper, Scissor.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
+char getUserChoice();
+char getComputerChoice(char userChoice);
+void displayChoices(char player);
+void determineWinner(char player, char computer);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    char player;
+    char computer;
+	player = getUserChoice();
+	std::cout << "You chose: " << player << "\n";
+    displayChoices(player);
+	computer = getComputerChoice(player);
+	std::cout << "Computer chose: " << computer << "\n";
+	displayChoices(computer);
+	determineWinner(player, computer);
+    return 0;
+    
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+char getUserChoice()
+{
+    char player;
+    do {
+        std::cout << "************************************************************************************\n";
+        std::cout << "************************************************************************************\n";
+        std::cout << "Welcome to the Rock, Paper, Scissor game!\n";
+        std::cout << "Rock! Paper! Scissor!\n";
+        std::cout << "Please enter your choice\n";
+        std::cout << "R for Rock\n";
+        std::cout << "P for Paper\n";
+        std::cout << "S for Scissor\n";
+        std::cout << "************************************************************************************\n";
+        std::cout << "************************************************************************************\n";
+        std::cin >> player;
+		std::cout << "Computer chose: " << player << "\n";
+		system("cls"); 
+		player = toupper(player);
+	} while (player != 'R' && player != 'P' && player != 'S');
+    return player;
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+char getComputerChoice(char userChoice)
+{
+    srand(time(0));
+    int num = rand() % 3 + 1;
+
+    switch (num)
+    {
+    case 1:
+        return 'R';
+    case 2:
+		return 'P';
+    case 3:
+		return 'S';
+    default:
+			return 'R'; 
+    }
+}
+
+void displayChoices (char userChoice)
+{       
+    userChoice = toupper(userChoice);
+    
+    switch(userChoice)
+    {
+        case 'R':
+            std::cout << "You chose Rock!\n";
+            break;
+        case 'P':
+            std::cout << "You chose Paper!\n";
+            break;
+        case 'S':
+            std::cout << "You chose Scissor!\n";
+            break;
+        default:
+            std::cout << "Invalid choice!\n";
+			break;
+    }
+}
+
+void determineWinner(char player, char computer)
+{
+    switch (player)
+    {
+    case 'R':
+        if (computer == 'S')
+        {
+            std::cout << "Rock crushes Scissor! You win!\n";
+        }
+        else if (computer == 'P')
+        {
+            std::cout << "Paper covers Rock! You lose!\n";
+        }
+        else
+        {
+            std::cout << "It's a tie! Both chose Rock!\n";
+        }
+        break;
+    case 'P':
+        if (computer == 'R')
+        {
+            std::cout << "Paper covers Rock! You win!\n";
+        }
+        else if (computer == 'S')
+        {
+            std::cout << "Scissor cuts Paper! You lose!\n";
+        }
+        else
+        {
+			std::cout << "It's a tie! Both chose Paper!\n";
+        }
+        break;
+    case 'S' :
+        if (computer == 'P')
+        {
+            std::cout << "Scissor cuts Paper! You win!\n";
+        }
+        else if (computer == 'R')
+        {
+            std::cout << "Rock crushes Scissor! You lose!\n";
+        }
+        else
+        {
+            std::cout << "It's a tie! Both chose Scissor!\n";
+		}
+        break;
+    }
+}
+
